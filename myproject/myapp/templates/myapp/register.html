@@ -1,0 +1,108 @@
+{% load widget_tweaks %} {% block content %}
+<style>
+    /* Container bao quanh form */
+    .container {
+        width: 100%;
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Tiêu đề của form */
+    .title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    /* Căn chỉnh các phần tử trong form */
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Cấu trúc mỗi nhóm trường */
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    /* Các trường input */
+    .input-field {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    /* Hiệu ứng focus cho input */
+    .input-field:focus {
+        border-color: #007bff;
+    }
+
+    /* Nút đăng ký */
+    .submit-btn {
+        padding: 12px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho nút */
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Liên kết đăng nhập */
+    .login-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .login-link a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+<div class="container">
+    <h2 class="title">Đăng ký tài khoản</h2>
+    <form method="POST" class="form-container">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Tên đăng nhập</label>
+            {{ form.username|add_class:"input-field" }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Mật khẩu</label>
+            {{ form.password1|add_class:"input-field" }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}"
+                >Nhập lại mật khẩu</label
+            >
+            {{ form.password2|add_class:"input-field" }}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="submit-btn">Đăng ký</button>
+        </div>
+    </form>
+    <p class="login-link">
+        Đã có tài khoản? <a href="{% url 'login' %}">Đăng nhập</a>
+    </p>
+</div>
+{% endblock %}

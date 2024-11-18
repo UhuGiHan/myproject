@@ -1,0 +1,146 @@
+{% block content %}
+<style>
+    /* Container chung cho toàn bộ nội dung */
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .user-status {
+        text-align: right;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    .create-post-btn {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    .create-post-btn .btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .create-post-btn .btn:hover {
+        background-color: #45a049;
+    }
+
+    .posts-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .post-item {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .post-title {
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    .post-date {
+        font-size: 0.9rem;
+        color: #888;
+    }
+
+    .post-content {
+        margin-top: 10px;
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .post-author {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .read-more {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 1rem;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container">
+    <h1 class="page-title">Blog cá nhân</h1>
+
+    <!-- Hiển thị thông báo người dùng đã đăng nhập -->
+    <div class="user-status">
+        {% if user.is_authenticated %}
+        <p>
+            Chào, <strong>{{ user.username }}</strong>!
+            <a href="{% url 'logout' %}">Đăng xuất</a>
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- Nút tạo bài viết mới -->
+    <div class="create-post-btn">
+        {% if user.is_authenticated %}
+        <a href="{% url 'create_post' %}" class="btn btn-primary"
+            >Tạo bài viết mới</a
+        >
+        {% else %}
+        <p>
+            Vui lòng <a href="{% url 'login' %}">đăng nhập</a> hoặc
+            <a href="{% url 'register' %}">đăng ký</a> để tạo bài viết mới.
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- Hiển thị danh sách bài viết -->
+    <div class="posts-list">
+        <ul>
+            {% for post in posts %}
+            <li class="post-item">
+                <div class="post-header">
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <span class="post-date"
+                        >{{ post.created_at|date:"d/m/Y H:i" }}</span
+                    >
+                </div>
+                <p class="post-content">{{ post.content|truncatewords:30 }}</p>
+                <!-- Hiển thị phần đầu nội dung -->
+                <p class="post-author">
+                    Tác giả: <strong>{{ post.author.username }}</strong>
+                </p>
+                {% comment %}
+                <a href="{% url 'post_detail' post.id %}" class="read-more"
+                    >Đọc tiếp</a
+                >
+                {% endcomment %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

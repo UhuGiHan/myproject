@@ -1,0 +1,50 @@
+{% block content %}
+<h1>Tạo bài viết mới</h1>
+
+<!-- Form để tạo bài viết -->
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="title">Tiêu đề:</label><br />
+        <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Nhập tiêu đề bài viết"
+            required
+            style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+    </div>
+    <br />
+    <div>
+        <label for="content">Nội dung:</label><br />
+        <textarea
+            id="content"
+            name="content"
+            rows="8"
+            placeholder="Nhập nội dung bài viết"
+            required
+            style="width: 100%; padding: 8px; margin-top: 5px"
+        ></textarea>
+    </div>
+    <br />
+    <button
+        type="submit"
+        style="
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        "
+    >
+        Đăng bài
+    </button>
+</form>
+
+<br />
+<!-- Liên kết quay lại -->
+<a href="{% url 'index' %}" style="text-decoration: none; color: #555">
+    &#8592; Quay lại danh sách bài viết
+</a>
+{% endblock %}
