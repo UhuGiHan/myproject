@@ -10,9 +10,8 @@
 6. Chạy server bằng lệnh python manage.py runserver
 7. Mở trình duyệt web nhập địa chiri http://127.0.0.1:8000/
 
-**Quan trọng cần cài gói thư viện**:
+# Cài gói thư viện
 1. Install thêm thư viện 'django-widget-tweaks' => pip install django-widget-tweaks
-2. Install virtual environment nếu chưa được tạo => 
 
 
 
